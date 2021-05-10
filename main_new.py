@@ -200,7 +200,7 @@ def device_polling():
     SolarInverter = copy.deepcopy(SOLIS_4G_Registers)
 
     SOLIS_Config =  {
-        'Solar': { "NAME": "Inverter", "PORT": "/dev/tty.SLAB_USBtoUART", "ADDRESS": 1, "DATA": SolarInverter}
+        'Solar': { "NAME": "Inverter", "PORT": "/dev/ttyUSB0", "ADDRESS": 1, "DATA": SolarInverter}
     }
 
     # Create modbus clients
@@ -208,7 +208,7 @@ def device_polling():
 
     if CONF_SOLIS_4G_3P:
         try:
-            Rtuclient = ModbusRtuClient(method='rtu', port='/dev/tty.SLAB_USBtoUART', stopbits = 1, bytesize = 8, parity = 'N', baudrate = 9600 , timeout=1)
+            Rtuclient = ModbusRtuClient(method='rtu', port='/dev/ttyUSB0', stopbits = 1, bytesize = 8, parity = 'N', baudrate = 9600 , timeout=1)
             if DashingEnabled:
                 Dashlog.append( f"Modbus RTU port open: {Rtuclient.connect()}")
             else:
