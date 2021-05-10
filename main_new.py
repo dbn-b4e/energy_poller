@@ -250,7 +250,7 @@ def device_polling():
                         #print(z['ADDRESS'],  y['Address'], y['Size'])
                         rr = None
                         try:
-                            rr = Rtuclient.read_holding_registers(y['Address'], y['Size'], unit=z['ADDRESS'])
+                            rr = Rtuclient.read_input_registers(y['Address'], y['Size'], unit=z['ADDRESS'])
                         except Exception as e:
                             if DashingEnabled:
                                 DashErrors.append("Exception %s" % str(e))
@@ -258,7 +258,7 @@ def device_polling():
                             else:
                                 log.info("Exception %s" % str(e))
                                 pass                
-                        if(isinstance(rr, ReadHoldingRegistersResponse) and (len(rr.registers) == y['Size'])):
+                        if(isinstance(rr, ReadInputRegistersResponse) and (len(rr.registers) == y['Size'])):
                             decoder = BinaryPayloadDecoder.fromRegisters(rr.registers, byteorder=Endian.Big, wordorder=Endian.Big)
                             decoded = OrderedDict([
                                 ('string', decoder.decode_string),
