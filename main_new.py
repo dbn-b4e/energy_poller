@@ -340,7 +340,7 @@ def device_polling():
                         else:
                             log.info(f"EmonCMS slave {z['NAME']} nothing to push")
 
-            time.sleep(0.1)
+            time.sleep(5)
     except Exception as e:
         print("Exception %s" % str(e) )
 
