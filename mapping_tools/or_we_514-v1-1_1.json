@@ -1,0 +1,126 @@
+{
+	"sections": [
+		{
+			"id": 12,
+			"version": 1,
+			"name": "OR_WE_514_part1",
+			"address": 304,
+			"instance": 1,
+			"isize": 41,
+			"size": 41,
+			"mode": "ro",
+			"regs": [
+				{
+					"name": "Freq",
+					"type": "uint16",
+					"size": 1,
+					"offset": 0,
+					"exp": -2,
+					"unit": "Hz",
+					"description": "Frequency"
+				},
+				{
+					"name": "Vrms",
+					"type": "uint16",
+					"size": 1,
+					"offset": 1,
+					"exp": -2,
+					"unit": "V",
+					"description": "Vrms"
+				},
+				{
+					"name": "_stub",
+					"type": "byte$14",
+					"size": 7,
+					"offset": 2
+				},
+				{
+					"name": "Irms",
+					"type": "uint32",
+					"size": 2,
+					"offset": 9,
+					"exp": -3,
+					"unit": "A",
+					"description": "Irms"
+				},
+				{
+					"name": "_stub",
+					"type": "byte$10",
+					"size": 5,
+					"offset": 11
+				},
+				{
+					"name": "APwr",
+					"type": "uint32",
+					"size": 2,
+					"offset": 16,
+					"unit": "W",
+					"description": "Active Power"
+				},
+				{
+					"name": "_stub",
+					"type": "byte$12",
+					"size": 6,
+					"offset": 18
+				},
+				{
+					"name": "RPwr",
+					"type": "uint32",
+					"size": 2,
+					"offset": 24,
+					"unit": "var",
+					"description": "Reactive Power"
+				},
+				{
+					"name": "_stub",
+					"type": "byte$12",
+					"size": 6,
+					"offset": 26
+				},
+				{
+					"name": "SPwr",
+					"type": "uint32",
+					"size": 2,
+					"offset": 32,
+					"unit": "VA",
+					"description": "Apparent Power"
+				},
+				{
+					"name": "_stub",
+					"type": "byte$12",
+					"size": 6,
+					"offset": 34
+				},
+				{
+					"name": "PF",
+					"type": "uint16",
+					"size": 1,
+					"offset": 40,
+					"exp": -3,
+					"description": "Power Factor"
+				}
+			]
+		},
+		{
+			"id": 13,
+			"version": 1,
+			"name": "OR_WE_514_part2",
+			"address": 40960,
+			"instance": 1,
+			"isize": 2,
+			"size": 2,
+			"mode": "ro",
+			"regs": [
+				{
+					"name": "Energy",
+					"type": "uint32",
+					"size": 2,
+					"offset": 0,
+					"exp": -2,
+					"unit": "kWh",
+					"description": "Energy"
+				}
+			]
+		}
+	]
+}

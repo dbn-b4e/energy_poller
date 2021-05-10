@@ -1,0 +1,232 @@
+{
+	"sections": [
+		{
+			"id": 14,
+			"version": 1,
+			"name": "SOLIS_4G_3P_part1",
+			"address": 3004,
+			"instance": 1,
+			"isize": 39,
+			"size": 39,
+			"mode": "ro",
+			"regs": [
+				{
+					"name": "AC_W",
+					"type": "uint32",
+					"size": 2,
+					"offset": 0,
+					"unit": "W",
+					"description": "AC Power",
+					"$info": 3004
+				},
+				{
+					"name": "DC_W",
+					"type": "uint32",
+					"size": 2,
+					"offset": 2,
+					"unit": "W",
+					"description": "DC Power",
+					"$info": 3006
+				},
+				{
+					"name": "EGY_TOT",
+					"type": "uint32",
+					"size": 2,
+					"offset": 4,
+					"unit": "kWh",
+					"description": "Total Energy",
+					"$info": 3008
+				},
+				{
+					"name": "_stub",
+					"type": "byte$2",
+					"size": 1,
+					"offset": 6,
+					"$info": 3010
+				},
+				{
+					"name": "EGY_MONTH_CUR",
+					"type": "uint16",
+					"size": 1,
+					"offset": 7,
+					"unit": "kWh",
+					"description": "This month energy",
+					"$info": 3011
+				},
+				{
+					"name": "_stub",
+					"type": "byte$4",
+					"size": 2,
+					"offset": 8,
+					"$info": "3012..3013"
+				},
+				{
+					"name": "EGY_TODAY",
+					"type": "uint16",
+					"size": 1,
+					"offset": 10,
+					"unit": "kWh",
+					"description": "Today energy",
+					"$info": 3014
+				},
+				{
+					"name": "_stub",
+					"type": "byte$4",
+					"size": 2,
+					"offset": 11,
+					"$info": "3015..3016"
+				},
+				{
+					"name": "EGY_YEAR_CUR",
+					"type": "uint16",
+					"size": 1,
+					"offset": 13,
+					"unit": "kWh",
+					"description": "Today energy",
+					"$info": 3017
+				},
+				{
+					"name": "_stub",
+					"type": "byte$6",
+					"size": 3,
+					"offset": 14,
+					"$info": "3018..3020"
+				},
+				{
+					"name": "DC_V1",
+					"type": "uint16",
+					"size": 1,
+					"offset": 17,
+					"exp": -1,
+					"unit": "V",
+					"description": "DC V String 1",
+					"$info": 3021
+				},
+				{
+					"name": "DC_I1",
+					"type": "uint16",
+					"size": 1,
+					"offset": 18,
+					"exp": -1,
+					"unit": "I",
+					"description": "DC V String 1",
+					"$info": 3022
+				},
+				{
+					"name": "DC_V2",
+					"type": "uint16",
+					"size": 1,
+					"offset": 19,
+					"exp": -1,
+					"unit": "V",
+					"description": "DC V String 2",
+					"$info": 3023
+				},
+				{
+					"name": "DC_I2",
+					"type": "uint16",
+					"size": 1,
+					"offset": 20,
+					"exp": -1,
+					"unit": "I",
+					"description": "DC I String 2",
+					"$info": 3024
+				},
+				{
+					"name": "_stub",
+					"type": "byte$16",
+					"size": 8,
+					"offset": 21,
+					"$info": "3025..3032"
+				},
+				{
+					"name": "AC_V_L1",
+					"type": "uint16",
+					"size": 1,
+					"offset": 29,
+					"exp": -1,
+					"unit": "V",
+					"description": "AC Voltage L1",
+					"$info": 3033
+				},
+				{
+					"name": "AC_V_L2",
+					"type": "uint16",
+					"size": 1,
+					"offset": 30,
+					"exp": -1,
+					"unit": "V",
+					"description": "AC Voltage L2",
+					"$info": 3034
+				},
+				{
+					"name": "AC_V_L3",
+					"type": "uint16",
+					"size": 1,
+					"offset": 31,
+					"exp": -1,
+					"unit": "V",
+					"description": "AC Voltage L3",
+					"$info": 3035
+				},
+				{
+					"name": "AC_I_L1",
+					"type": "uint16",
+					"size": 1,
+					"offset": 32,
+					"exp": -1,
+					"unit": "I",
+					"description": "AC Current L1",
+					"$info": 3036
+				},
+				{
+					"name": "AC_I_L2",
+					"type": "uint16",
+					"size": 1,
+					"offset": 33,
+					"exp": -1,
+					"unit": "I",
+					"description": "AC Current L2",
+					"$info": 3037
+				},
+				{
+					"name": "AC_I_L3",
+					"type": "uint16",
+					"size": 1,
+					"offset": 34,
+					"exp": -1,
+					"unit": "I",
+					"description": "AC Current L3",
+					"$info": 3038
+				},
+				{
+					"name": "_stub",
+					"type": "byte$4",
+					"size": 2,
+					"offset": 35,
+					"$info": "3039..3040"
+				},
+				{
+					"name": "INV_TEMP",
+					"type": "uint16",
+					"size": 1,
+					"offset": 37,
+					"exp": -1,
+					"unit": "degC",
+					"description": "Inverter temperature",
+					"$info": 3041
+				},
+				{
+					"name": "GRID_FREQU",
+					"type": "uint16",
+					"size": 1,
+					"offset": 38,
+					"exp": -2,
+					"unit": "Hz",
+					"description": "Grid frequency",
+					"$info": 3042
+				}
+			]
+		}
+	]
+}

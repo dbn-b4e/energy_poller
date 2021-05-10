@@ -1,0 +1,17 @@
+[Unit]
+Description=Meter modbus poller
+Requires=network-online.target
+After=network.target network-online.target
+ 
+[Service]
+User=pi
+Type=simple
+WorkingDirectory=/home/pi/work/energy_poller
+ExecStart=/usr/bin/python3 /home/pi/work/energy_poller/main.py
+#ExecStop=/path/to/killcommand
+Restart=always
+RestartSec=1s
+KillMode=mixed
+ 
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,180 @@
+{
+	"sections": [
+		{
+			"id": 10,
+			"version": 1,
+			"name": "EEM_MA370_part1",
+			"address": 32768,
+			"instance": 1,
+			"isize": 28,
+			"size": 28,
+			"mode": "ro",
+			"regs": [
+				{
+					"name": "Vrms12",
+					"type": "float32",
+					"size": 2,
+					"offset": 0,
+					"unit": "V",
+					"description": "Vrms L1"
+				},
+				{
+					"name": "Vrms23",
+					"type": "float32",
+					"size": 2,
+					"offset": 2,
+					"unit": "V",
+					"description": "Vrms L2"
+				},
+				{
+					"name": "Vrms31",
+					"type": "float32",
+					"size": 2,
+					"offset": 4,
+					"unit": "V",
+					"description": "Vrms L3"
+				},
+				{
+					"name": "_stub",
+					"type": "byte$12",
+					"size": 6,
+					"offset": 6
+				},
+				{
+					"name": "Freq",
+					"type": "float32",
+					"size": 2,
+					"offset": 12,
+					"unit": "Hz",
+					"description": "Frequency"
+				},
+				{
+					"name": "Irms1",
+					"type": "float32",
+					"size": 2,
+					"offset": 14,
+					"unit": "A",
+					"description": "Irms L1"
+				},
+				{
+					"name": "Irms2",
+					"type": "float32",
+					"size": 2,
+					"offset": 16,
+					"unit": "A",
+					"description": "Irms L2"
+				},
+				{
+					"name": "Irms3",
+					"type": "float32",
+					"size": 2,
+					"offset": 18,
+					"unit": "A",
+					"description": "Irms L3"
+				},
+				{
+					"name": "_stub",
+					"type": "byte$4",
+					"size": 2,
+					"offset": 20
+				},
+				{
+					"name": "APwr",
+					"type": "float32",
+					"size": 2,
+					"offset": 22,
+					"unit": "W",
+					"description": "Active power"
+				},
+				{
+					"name": "RPwr",
+					"type": "float32",
+					"size": 2,
+					"offset": 24,
+					"unit": "VAR",
+					"description": "Reactive power"
+				},
+				{
+					"name": "SPwr",
+					"type": "float32",
+					"size": 2,
+					"offset": 26,
+					"unit": "VA",
+					"description": "Apparent power"
+				}
+			]
+		},
+		{
+			"id": 11,
+			"version": 1,
+			"name": "EEM_MA370_part2",
+			"address": 34816,
+			"instance": 1,
+			"isize": 9,
+			"size": 9,
+			"mode": "ro",
+			"regs": [
+				{
+					"name": "THDU12",
+					"type": "uint16",
+					"size": 1,
+					"offset": 0,
+					"exp": -1,
+					"unit": "%",
+					"description": "V12 THD"
+				},
+				{
+					"name": "THDU23",
+					"type": "uint16",
+					"size": 1,
+					"offset": 1,
+					"exp": -1,
+					"unit": "%",
+					"description": "V23 THD"
+				},
+				{
+					"name": "THDU31",
+					"type": "uint16",
+					"size": 1,
+					"offset": 2,
+					"exp": -1,
+					"unit": "%",
+					"description": "V23 THD"
+				},
+				{
+					"name": "_stub",
+					"type": "byte$6",
+					"size": 3,
+					"offset": 3
+				},
+				{
+					"name": "THDI1",
+					"type": "uint16",
+					"size": 1,
+					"offset": 6,
+					"exp": -1,
+					"unit": "%",
+					"description": "I1 THD"
+				},
+				{
+					"name": "THDI2",
+					"type": "uint16",
+					"size": 1,
+					"offset": 7,
+					"exp": -1,
+					"unit": "%",
+					"description": "I2 THD"
+				},
+				{
+					"name": "THDI3",
+					"type": "uint16",
+					"size": 1,
+					"offset": 8,
+					"exp": -1,
+					"unit": "%",
+					"description": "I3 THD"
+				}
+			]
+		}
+	]
+}

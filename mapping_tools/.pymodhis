@@ -1,0 +1,12 @@
+
+# 2021-02-14 16:25:15.211317
++client.connect
+
+# 2021-02-14 16:25:28.574759
++client.read_holding_registers
+
+# 2021-02-14 16:25:36.995630
++client.read_holding_registers address=304
+
+# 2021-02-14 16:25:42.474865
++client.read_holding_registers address=304 unit=1
