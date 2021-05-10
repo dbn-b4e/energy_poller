@@ -309,7 +309,7 @@ def device_polling():
                             reqdata[f"{z['NAME']}{y['Name']}"] = y['Value']
                         #print('reqdata = {reqdata}')
                         req = MyEmon.senddata(reqdata)
-                        #reqstr = f'http://{emon_host}{emon_url}{emon_node}&json={json.dumps(reqdata)}&apikey={emon_privateKey}'
+                        reqstr = f'http://{emon_host}{emon_url}{emon_node}&json={json.dumps(reqdata)}&apikey={emon_privateKey}'
 
                         try:
                             r=requests.get(reqstr, timeout=10)
