@@ -109,7 +109,7 @@
 					"offset": 18,
 					"exp": -1,
 					"unit": "I",
-					"description": "DC V String 1",
+					"description": "DC I String 1",
 					"$info": 3022
 				},
 				{
