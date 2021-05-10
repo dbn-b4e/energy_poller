@@ -190,7 +190,7 @@ def device_polling():
     
     OR_WE_514_Registers = testmap.generate_device_dict('./mapping_tools/or_we_514-v1-1_1.json')
     EEM_MA370_Registers = testmap.generate_device_dict('./mapping_tools/eem_ma370-v1-1_1.json')
-    SOLIS_4G_Registers = testmap.generate_device_dict('./mapping_tools/eem_ma370-v1-1_1.json')
+    SOLIS_4G_Registers = testmap.generate_device_dict('./mapping_tools/solis_4g_3p-v1-1_1.json')
     #print(OR_WE_514_Registers)
     #print(json.dumps(EEM_MA370_Registers, indent='\t'))
     #print(OR_WE_514_Registers)
