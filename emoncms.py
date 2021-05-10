@@ -19,7 +19,7 @@ class Myemon(object):
         self.reqstr             = ''
 
     def senddata(self, reqdata):
-        self.reqstr = self.emon_base_url + ujson.dumps(reqdata) + '}&apikey=' + '{}'.format(self.emon_privateKey )
+        self.reqstr = self.emon_base_url + json.dumps(reqdata) + '}&apikey=' + '{}'.format(self.emon_privateKey )
         self.reqstr=self.reqstr.replace(" ", "")
         print('Sending: {}'.format(self.reqstr))
         
