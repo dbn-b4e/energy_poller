@@ -296,7 +296,7 @@ def device_polling():
 
             if (CONF_EMONCMS and CONF_SOLIS_4G_3P):
                 SolarPower = 0
-                for x, z in ORNO_Config.items():
+                for x, z in SOLIS_Config.items():
                     if Rtuclient.is_socket_open():
                         reqdata = {}
                         #print("Slave: " + z['NAME'])
