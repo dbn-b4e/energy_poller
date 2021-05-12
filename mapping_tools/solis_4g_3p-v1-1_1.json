@@ -65,6 +65,7 @@
 					"type": "uint16",
 					"size": 1,
 					"offset": 10,
+					"exp": -1,
 					"unit": "kWh",
 					"description": "Today energy",
 					"$info": 3014
@@ -74,6 +75,7 @@
 					"type": "uint16",
 					"size": 1,
 					"offset": 11,
+					"exp": -1,
 					"unit": "kWh",
 					"description": "Yesterday energy",
 					"$info": 3015
