@@ -409,7 +409,47 @@ def device_polling():
                             ui.display()
                         else:
                             log.info(f"EmonCMS slave {z['NAME']} nothing to push")
+                            
+            if (CONF_EMONCMS and CONF_EM370):
+                for x, z in EEM_Config.items():
+                    if TcpClient.is_socket_open():
+                        reqdata = {}
+                        #print("Slave: " + z['NAME'])
+                        MyDict = z['DATA']
+                        #print (z['DATA'])
+                        for k, y in MyDict.items():
+                            #DashErrors.append(y['Name'])
+                            reqdata[f"{z['NAME']}{y['Name']}"] = y['Value']
+                        #print('reqdata = {reqdata}')
+                        reqstr = f'http://{emon_host}{emon_url}{emon_node}&json={json.dumps(reqdata)}&apikey={emon_privateKey}'
 
+                        try:
+                            r=requests.get(reqstr, timeout=10)
+                            r.raise_for_status()
+                        except requests.exceptions.HTTPError as errh:
+                            print ("Http Error:",errh)
+                        except requests.exceptions.ConnectionError as errc:
+                            print ("Error Connecting:",errc)
+                        except requests.exceptions.Timeout as errt:
+                            print ("Timeout Error:",errt)
+                        except requests.exceptions.RequestException as err:
+                            print ("OOps: Something Else",err)
+
+                        #print (r.status_code)
+                        #log.info( f"EmonCMS send status {r.status_code}" )
+                        if DashingEnabled:
+                            Dashlog.append(f"EmonCMS slave {z['NAME']} push status {r.status_code}")
+                            ui.display()
+                        else:
+                            log.info(f"EmonCMS slave {z['NAME']} push status {r.status_code}")
+                        #print (r.content)
+                    else:
+                        #log.info( "EmonCMS ORNO unable to send" )
+                        if DashingEnabled:
+                            Dashlog.append(f"EmonCMS slave {z['NAME']} nothing to push")
+                            ui.display()
+                        else:
+                            log.info(f"EmonCMS slave {z['NAME']} nothing to push")
             time.sleep(5)
     except Exception as e:
         print("Exception %s" % str(e) )
