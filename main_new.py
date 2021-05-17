@@ -198,15 +198,16 @@ def device_polling():
     print(SOLIS_4G_Registers)
 
     SolarInverter = copy.deepcopy(SOLIS_4G_Registers)
+    Grid = copy.deepcopy(EEM_MA370_Registers)
 
     SOLIS_Config =  {
         'Solar': { "NAME": "Inverter", "PORT": "/dev/ttyUSB0", "ADDRESS": 1, "DATA": SolarInverter}
     }
 
     EEM_Config =    {
-        'Home': { "NAME": "Grid", "PORT": "", "ADDRESS": 1, "DATA": Home}
+        'Home': { "NAME": "Grid", "PORT": "", "ADDRESS": 1, "DATA": Grid}
     }
-    
+
     # Create modbus clients
     if CONF_EM370:
         try:
