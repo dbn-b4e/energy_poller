@@ -227,6 +227,7 @@ def device_polling():
         while True:
             #os.system('cls' if os.name == 'nt' else 'clear')
             QuerryNb = QuerryNb+1
+            Rtuclient.connect()
 
             if CONF_SOLIS_4G_3P and Rtuclient.is_socket_open():
                 if DashingEnabled:
@@ -285,8 +286,7 @@ def device_polling():
                                 DashMeas1.append(f"{y['Name']} = {y['Value']:.02f} {y['Units']}")
                                 ui.display()
                             #print ( f"Register: {y['Name']} = {y['Value']:.02f} {y['Units']}")
-
-
+#                Rtuclient.close()
             #print("HOME")
             if DashingEnabled:
                 bchart.append(QuerryNb)
