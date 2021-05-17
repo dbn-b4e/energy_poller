@@ -165,7 +165,7 @@ def device_polling():
         log.info("Starting device poller")
 
     CONF_ORNO = False
-    CONF_EM370 = False
+    CONF_EM370 = True
     CONF_SOLIS_4G_3P = True
     CONF_EMONCMS = True
     RtuclientState = False
@@ -173,7 +173,7 @@ def device_polling():
     QuerryNb = 0
 
     HostName = 'emoncms.powerdale.com'
-    ModbusHost = "192.168.0.210"
+    ModbusHost = "10.10.10.101"
     ModbusPort = 502
 
     emon_host = "emoncms.powerdale.com";
@@ -204,7 +204,20 @@ def device_polling():
     }
 
     # Create modbus clients
-
+    if CONF_EM370:
+        try:
+            TcpClient = ModbusTcpClient(host=ModbusHost, port=ModbusPort, auto_open=True, timeout=5)
+            if DashingEnabled:
+                Dashlog.append( f"Modbus TCP client connected: {TcpClient.connect()}" )
+            else:
+                log.info(f"Modbus TCP client connected: {TcpClient.connect()}" )
+        except Exception as e:
+            if DashingEnabled:
+                DashErrors.append("Exception %s" % str(e))
+                ui.display()
+            else:
+                log.info("Exception %s" % str(e))
+                pass
 
     if CONF_SOLIS_4G_3P:
         try:
@@ -227,8 +240,65 @@ def device_polling():
         while True:
             #os.system('cls' if os.name == 'nt' else 'clear')
             QuerryNb = QuerryNb+1
-            Rtuclient.connect()
+            
 
+            if CONF_EM370 and TcpClient.is_socket_open():
+
+                if DashingEnabled:
+                    Dashlog.append("Read EEM_MA370")
+                    ui.display()
+                else:
+                    log.info("Read EEM_MA370")
+
+                for x, z in EEM_Config.items():
+                    if DashingEnabled:
+                        Dashlog.append(f"Reading slave {z['NAME']}")
+                    MyDict = z['DATA']
+                    #print (MyDict)
+                    for k, y in MyDict.items(): 
+                        #Log.append(y['Name'])
+                        if  (y['Name'] == 'Active power'):
+                            if DashingEnabled:
+                                Dashlog.append( f"Active power: {y['Value']:.01f}W")
+                                hchart.title = f"Active power: {y['Value']:.0f}W"
+                                hchart.append(100*y['Value']/5000)
+                                ui.display()
+                        rr = None
+                        try:
+                            rr = TcpClient.read_holding_registers(y['Address'], y['Size'])
+                        except Exception as e:
+                            if DashingEnabled:
+                                DashErrors.append("Exception %s" % str(e))
+                                ui.display()
+                            else:
+                                log.info("Exception %s" % str(e))
+                        if(isinstance(rr, ReadHoldingRegistersResponse) and (len(rr.registers) == y['Size'])):
+                            decoder = BinaryPayloadDecoder.fromRegisters(rr.registers, byteorder=Endian.Big, wordorder=Endian.Little)
+                            decoded = OrderedDict([
+                                ('string', decoder.decode_string),
+                                ('bits', decoder.decode_bits),
+                                ('8int', decoder.decode_8bit_int),
+                                ('8uint', decoder.decode_8bit_uint),
+                                ('16int', decoder.decode_16bit_int),
+                                ('16uint', decoder.decode_16bit_uint),
+                                ('32int', decoder.decode_32bit_int),
+                                ('32uint', decoder.decode_32bit_uint),
+                                ('16float', decoder.decode_16bit_float),
+                                ('16float2', decoder.decode_16bit_float),
+                                ('32float', decoder.decode_32bit_float),
+                                ('32float2', decoder.decode_32bit_float),
+                                ('64int', decoder.decode_64bit_int),
+                                ('64uint', decoder.decode_64bit_uint),
+                                ('ignore', decoder.skip_bytes),
+                                ('64float', decoder.decode_64bit_float),
+                                ('64float2', decoder.decode_64bit_float),
+                            ])
+                            y['Value'] = decoded[y['Type']]() * y['Scale']
+                            #print ( "Register: " + y['Name'] + " = " + str(y['Value']) + " " + y['Units'])
+                            #print ( f"Register: {y['Name']} = {y['Value']:.02f} {y['Units']}")
+            #print("HOME")
+
+            Rtuclient.connect()
             if CONF_SOLIS_4G_3P and Rtuclient.is_socket_open():
                 if DashingEnabled:
                     Dashlog.append("Read Solis-4G inverter")
