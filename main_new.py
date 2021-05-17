@@ -203,6 +203,10 @@ def device_polling():
         'Solar': { "NAME": "Inverter", "PORT": "/dev/ttyUSB0", "ADDRESS": 1, "DATA": SolarInverter}
     }
 
+    EEM_Config =    {
+        'Home': { "NAME": "Grid", "PORT": "", "ADDRESS": 1, "DATA": Home}
+    }
+    
     # Create modbus clients
     if CONF_EM370:
         try:
@@ -409,7 +413,7 @@ def device_polling():
                             ui.display()
                         else:
                             log.info(f"EmonCMS slave {z['NAME']} nothing to push")
-                            
+
             if (CONF_EMONCMS and CONF_EM370):
                 for x, z in EEM_Config.items():
                     if TcpClient.is_socket_open():
