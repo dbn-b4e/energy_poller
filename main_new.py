@@ -408,7 +408,6 @@ def device_polling():
                         rr = None
                         try:
                             rr = Rtuclient2.read_holding_registers(y['Address'], y['Size'], unit=z['ADDRESS'])
-                            print('RR:', rr)
                         except Exception as e:
                             if DashingEnabled:
                                 DashErrors.append("Exception %s" % str(e))
@@ -438,7 +437,7 @@ def device_polling():
                                 ('64float', decoder.decode_64bit_float),
                                 ('64float2', decoder.decode_64bit_float),
                             ])
-                            y['Value'] = decoded[y['Type']]() * y['Scale']
+                            y['Value'] = round(decoded[y['Type']]() * y['Scale'],3)
                             #print ( "Register: " + y['Name'] + " = " + str(y['Value']) + " " + y['Units'])
                             if DashingEnabled:
                                 DashMeas1.append(f"{y['Name']} = {y['Value']:.02f} {y['Units']}")
