@@ -16,6 +16,7 @@ from dashing import *
 import math
 from emoncms import Myemon
 import json
+import math
 
 
 DashEnabled = False
@@ -438,7 +439,7 @@ def device_polling():
                                 ('64float2', decoder.decode_64bit_float),
                             ])
                             y['Value'] = round(decoded[y['Type']]() * y['Scale'],3)
-                            if (y['Value'] == float('NaN')):
+                            if math.isnan(y['Value']):
                                 y['Value'] = 0
                             #print ( "Register: " + y['Name'] + " = " + str(y['Value']) + " " + y['Units'])
                             if DashingEnabled:
