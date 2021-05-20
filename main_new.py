@@ -318,7 +318,7 @@ def device_polling():
                                 ('64float', decoder.decode_64bit_float),
                                 ('64float2', decoder.decode_64bit_float),
                             ])
-                            y['Value'] = decoded[y['Type']]() * y['Scale']
+                            y['Value'] = round(decoded[y['Type']]() * y['Scale'],3)
                             #print ( "Register: " + y['Name'] + " = " + str(y['Value']) + " " + y['Units'])
                             #print ( f"Register: {y['Name']} = {y['Value']:.02f} {y['Units']}")
             #print("HOME")
@@ -375,7 +375,7 @@ def device_polling():
                                 ('64float', decoder.decode_64bit_float),
                                 ('64float2', decoder.decode_64bit_float),
                             ])
-                            y['Value'] = decoded[y['Type']]() * y['Scale']
+                            y['Value'] = round(decoded[y['Type']]() * y['Scale'],3)
                             #print ( "Register: " + y['Name'] + " = " + str(y['Value']) + " " + y['Units'])
                             if DashingEnabled:
                                 DashMeas1.append(f"{y['Name']} = {y['Value']:.02f} {y['Units']}")
