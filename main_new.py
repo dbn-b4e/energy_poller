@@ -383,7 +383,7 @@ def device_polling():
                             #print ( f"Register: {y['Name']} = {y['Value']:.02f} {y['Units']}")
 #                Rtuclient.close()
 
-vv
+
             Rtuclient2.connect()
             if CONF_JANITZA_B23 and Rtuclient2.is_socket_open():
                 if DashingEnabled:
@@ -391,7 +391,7 @@ vv
                     ui.display()
                 else:
                     log.info("Read EVSE charger...")
-vv
+
                 for x, z in B23_Config.items():
                     if DashingEnabled:
                         Dashlog.append(f"Reading slave {z['NAME']}")
