@@ -404,7 +404,7 @@ def device_polling():
                     MyDict = z['DATA']
                     print (MyDict)
                     for k, y in MyDict.items(): 
-                        print(z['ADDRESS'],  y['Address'], y['Size'])
+                        #print(z['ADDRESS'],  y['Address'], y['Size'])
                         rr = None
                         try:
                             rr = Rtuclient2.read_holding_registers(y['Address'], y['Size'], unit=z['ADDRESS'])
