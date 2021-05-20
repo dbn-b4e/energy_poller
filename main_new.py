@@ -494,7 +494,7 @@ def device_polling():
                         else:
                             log.info(f"EmonCMS slave {z['NAME']} nothing to push")
 
-           if (CONF_EMONCMS and CONF_JANITZA_B23):
+            if (CONF_EMONCMS and CONF_JANITZA_B23):
                 for x, z in B23_Config.items():
                     if Rtuclient2.is_socket_open():
                         reqdata = {}
@@ -538,7 +538,7 @@ def device_polling():
                             ui.display()
                         else:
                             log.info(f"EmonCMS slave {z['NAME']} nothing to push")
-                            
+
             if (CONF_EMONCMS and CONF_EM370):
                 for x, z in EEM_Config.items():
                     if TcpClient.is_socket_open():
