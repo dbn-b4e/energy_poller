@@ -382,6 +382,8 @@ def device_polling():
                                 ui.display()
                             #print ( f"Register: {y['Name']} = {y['Value']:.02f} {y['Units']}")
 #                Rtuclient.close()
+
+vv
             Rtuclient2.connect()
             if CONF_JANITZA_B23 and Rtuclient2.is_socket_open():
                 if DashingEnabled:
