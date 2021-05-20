@@ -11,6 +11,6 @@
         "emon_host":        "emoncms.powerdale.com",
         "emon_url":         "/input/post.json?node=",
         "emon_privateKey":  "4dbf608f20eab1ad1d1bf4512dc85d1c",
-        "emon_node":        "HOME-TEST"
+        "emon_node":        "B4E"
     }
 }
