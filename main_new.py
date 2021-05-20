@@ -249,9 +249,9 @@ def device_polling():
         try:
             Rtuclient2 = ModbusRtuClient(method='rtu', port='/dev/ttyUSB1', stopbits = 1, bytesize = 8, parity = 'N', baudrate = 9600 , timeout=1)
             if DashingEnabled:
-                Dashlog.append( f"Modbus RTU port open: {Rtuclient.connect()}")
+                Dashlog.append( f"Modbus RTU port open: {Rtuclient2.connect()}")
             else:
-                print(f"Modbus RTU port open: {Rtuclient.connect()}")
+                print(f"Modbus RTU port open: {Rtuclient2.connect()}")
         except Exception as e:
             if DashingEnabled:
                 DashErrors.append("Exception %s" % str(e))
@@ -407,7 +407,7 @@ def device_polling():
                         print(z['ADDRESS'],  y['Address'], y['Size'])
                         rr = None
                         try:
-                            rr = Rtuclient.read_holding_registers(y['Address'], y['Size'], unit=z['ADDRESS'])
+                            rr = Rtuclient2.read_holding_registers(y['Address'], y['Size'], unit=z['ADDRESS'])
                             print('RR:', rr)
                         except Exception as e:
                             if DashingEnabled:
