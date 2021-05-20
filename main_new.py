@@ -400,7 +400,7 @@ def device_polling():
                         log.info(f"Reading slave {z['NAME']}")
 
                     MyDict = z['DATA']
-                    #print (MyDict)
+                    print (MyDict)
                     for k, y in MyDict.items(): 
                         print(z['ADDRESS'],  y['Address'], y['Size'])
                         rr = None
