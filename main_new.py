@@ -389,7 +389,7 @@ def device_polling():
                     ui.display()
                 else:
                     log.info("Read EVSE charger...")
-
+vv
                 for x, z in B23_Config.items():
                     if DashingEnabled:
                         Dashlog.append(f"Reading slave {z['NAME']}")
