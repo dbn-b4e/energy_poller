@@ -402,17 +402,17 @@ def device_polling():
                     MyDict = z['DATA']
                     #print (MyDict)
                     for k, y in MyDict.items(): 
-                        #print(z['ADDRESS'],  y['Address'], y['Size'])
+                        print(z['ADDRESS'],  y['Address'], y['Size'])
                         rr = None
                         try:
                             rr = Rtuclient.read_holding_registers(y['Address'], y['Size'], unit=z['ADDRESS'])
-                            print('Unit:', z['ADDRESS'])
                         except Exception as e:
                             if DashingEnabled:
                                 DashErrors.append("Exception %s" % str(e))
                                 ui.display()
                             else:
                                 log.info("Exception %s" % str(e))
+                                print('Read error')
                                 pass                
                         if(isinstance(rr, ReadHoldingRegistersResponse) and (len(rr.registers) == y['Size'])):
                             decoder = BinaryPayloadDecoder.fromRegisters(rr.registers, byteorder=Endian.Big, wordorder=Endian.Big)
