@@ -388,7 +388,7 @@ def device_polling():
                     Dashlog.append("Read EVSE charger")
                     ui.display()
                 else:
-                    log.info("Read EVSE charger")
+                    log.info("Read EVSE charger...")
 
                 for x, z in B23_Config.items():
                     if DashingEnabled:
