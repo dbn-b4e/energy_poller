@@ -405,7 +405,7 @@ def device_polling():
                         #print(z['ADDRESS'],  y['Address'], y['Size'])
                         rr = None
                         try:
-                            rr = Rtuclient.read_input_registers(y['Address'], y['Size'], unit=z['ADDRESS'])
+                            rr = Rtuclient.read_holding_registers(y['Address'], y['Size'], unit=z['ADDRESS'])
                             print('Unit:', z['ADDRESS'])
                         except Exception as e:
                             if DashingEnabled:
