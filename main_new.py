@@ -414,7 +414,7 @@ def device_polling():
                             else:
                                 log.info("Exception %s" % str(e))
                                 pass                
-                        if(isinstance(rr, ReadInputRegistersResponse) and (len(rr.registers) == y['Size'])):
+                        if(isinstance(rr, ReadHoldingRegistersResponse) and (len(rr.registers) == y['Size'])):
                             decoder = BinaryPayloadDecoder.fromRegisters(rr.registers, byteorder=Endian.Big, wordorder=Endian.Big)
                             decoded = OrderedDict([
                                 ('string', decoder.decode_string),
