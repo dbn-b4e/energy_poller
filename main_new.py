@@ -438,7 +438,7 @@ def device_polling():
                                 ('64float2', decoder.decode_64bit_float),
                             ])
                             y['Value'] = round(decoded[y['Type']]() * y['Scale'],3)
-                            if (y['Value'] == float('nan')):
+                            if (y['Value'] == float('NaN')):
                                 y['Value'] = 0
                             #print ( "Register: " + y['Name'] + " = " + str(y['Value']) + " " + y['Units'])
                             if DashingEnabled:
