@@ -1,0 +1,114 @@
+{
+	"sections": [
+		{
+			"id": 15,
+			"version": 1,
+			"name": "JANITZA_B23_part1",
+			"address": 19006,
+			"instance": 1,
+			"isize": 20,
+			"size": 20,
+			"mode": "ro",
+			"regs": [
+				{
+					"name": "V12",
+					"type": "float32",
+					"size": 2,
+					"offset": 0,
+					"unit": "V",
+					"description": "V12",
+					"$info": 19006
+				},
+				{
+					"name": "V23",
+					"type": "float32",
+					"size": 2,
+					"offset": 2,
+					"unit": "V",
+					"description": "V23",
+					"$info": 19008
+				},
+				{
+					"name": "V31",
+					"type": "float32",
+					"size": 2,
+					"offset": 4,
+					"unit": "V",
+					"description": "V31",
+					"$info": 19010
+				},
+				{
+					"name": "I1",
+					"type": "float32",
+					"size": 2,
+					"offset": 6,
+					"unit": "A",
+					"description": "I1",
+					"$info": 19012
+				},
+				{
+					"name": "I2",
+					"type": "float32",
+					"size": 2,
+					"offset": 8,
+					"unit": "A",
+					"description": "I2",
+					"$info": 19014
+				},
+				{
+					"name": "I3",
+					"type": "float32",
+					"size": 2,
+					"offset": 10,
+					"unit": "A",
+					"description": "I3",
+					"$info": 19016
+				},
+				{
+					"name": "_stub",
+					"type": "byte$4",
+					"size": 2,
+					"offset": 12,
+					"description": "_stub",
+					"$info": 19018
+				},
+				{
+					"name": "P1",
+					"type": "float32",
+					"size": 2,
+					"offset": 14,
+					"unit": "W",
+					"description": "P1",
+					"$info": 19020
+				},
+				{
+					"name": "P2",
+					"type": "float32",
+					"size": 2,
+					"offset": 16,
+					"unit": "W",
+					"description": "P2",
+					"$info": 19022
+				},
+				{
+					"name": "P3",
+					"type": "float32",
+					"size": 2,
+					"offset": 18,
+					"unit": "W",
+					"description": "P3",
+					"$info": 19024
+				},
+				{
+					"name": "Ptot",
+					"type": "float32",
+					"size": 2,
+					"offset": 20,
+					"unit": "W",
+					"description": "Ptot",
+					"$info": 19026
+				}
+			]
+		}
+	]
+}

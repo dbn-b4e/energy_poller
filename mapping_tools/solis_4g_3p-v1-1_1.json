@@ -6,8 +6,8 @@
 			"name": "SOLIS_4G_3P_part1",
 			"address": 3004,
 			"instance": 1,
-			"isize": 39,
-			"size": 39,
+			"isize": 38,
+			"size": 38,
 			"mode": "ro",
 			"regs": [
 				{
