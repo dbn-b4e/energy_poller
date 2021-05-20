@@ -167,6 +167,7 @@ def device_polling():
     CONF_ORNO = False
     CONF_EM370 = True
     CONF_SOLIS_4G_3P = True
+    CONF_JANITZA_B23 = True
     CONF_EMONCMS = True
     RtuclientState = False
 
@@ -191,6 +192,7 @@ def device_polling():
     OR_WE_514_Registers = testmap.generate_device_dict('./mapping_tools/or_we_514-v1-1_1.json')
     EEM_MA370_Registers = testmap.generate_device_dict('./mapping_tools/eem_ma370-v1-1_1.json')
     SOLIS_4G_Registers = testmap.generate_device_dict('./mapping_tools/solis_4g_3p-v1-1_1.json')
+    JANITZA_B23_Registers = testmap.generate_device_dict('./mapping_tools/janitza_b23-v1-1_1.json')
     #print(OR_WE_514_Registers)
     #print(json.dumps(EEM_MA370_Registers, indent='\t'))
     #print(OR_WE_514_Registers)
@@ -205,9 +207,12 @@ def device_polling():
     }
 
     EEM_Config =    {
-        'Home': { "NAME": "Grid", "PORT": "", "ADDRESS": 1, "DATA": Grid}
+        'Grid': { "NAME": "Grid", "PORT": "", "ADDRESS": 1, "DATA": Grid}
     }
 
+    B23_Config =    {
+        'Evse': { "NAME": "Evse", "PORT": "/dev/ttyUSB1", "ADDRESS": 2, "DATA": Evse}
+    }
     # Create modbus clients
     if CONF_EM370:
         try:
@@ -239,6 +244,20 @@ def device_polling():
                 log.info("Exception %s" % str(e))
                 pass
 
+    if CONF_JANITZA_B23:
+        try:
+            Rtuclient2 = ModbusRtuClient(method='rtu', port='/dev/ttyUSB1', stopbits = 1, bytesize = 8, parity = 'N', baudrate = 9600 , timeout=1)
+            if DashingEnabled:
+                Dashlog.append( f"Modbus RTU port open: {Rtuclient.connect()}")
+            else:
+                print(f"Modbus RTU port open: {Rtuclient.connect()}")
+        except Exception as e:
+            if DashingEnabled:
+                DashErrors.append("Exception %s" % str(e))
+                ui.display()
+            else:
+                log.info("Exception %s" % str(e))
+                pass
     
 
     try:
@@ -362,6 +381,66 @@ def device_polling():
                                 ui.display()
                             #print ( f"Register: {y['Name']} = {y['Value']:.02f} {y['Units']}")
 #                Rtuclient.close()
+            Rtuclient2.connect()
+            if CONF_JANITZA_B23 and Rtuclient2.is_socket_open():
+                if DashingEnabled:
+                    Dashlog.append("Read EVSE charger")
+                    ui.display()
+                else:
+                    log.info("Read EVSE charger")
+
+                for x, z in B23_Config.items():
+                    if DashingEnabled:
+                        Dashlog.append(f"Reading slave {z['NAME']}")
+                        DashMeas1.append("")
+                        DashMeas1.append(f"Reading slave {z['NAME']}")
+                        ui.display()
+                    else:
+                        log.info(f"Reading slave {z['NAME']}")
+
+                    MyDict = z['DATA']
+                    #print (MyDict)
+                    for k, y in MyDict.items(): 
+                        #print(z['ADDRESS'],  y['Address'], y['Size'])
+                        rr = None
+                        try:
+                            rr = Rtuclient.read_input_registers(y['Address'], y['Size'], unit=z['ADDRESS'])
+                        except Exception as e:
+                            if DashingEnabled:
+                                DashErrors.append("Exception %s" % str(e))
+                                ui.display()
+                            else:
+                                log.info("Exception %s" % str(e))
+                                pass                
+                        if(isinstance(rr, ReadInputRegistersResponse) and (len(rr.registers) == y['Size'])):
+                            decoder = BinaryPayloadDecoder.fromRegisters(rr.registers, byteorder=Endian.Big, wordorder=Endian.Big)
+                            decoded = OrderedDict([
+                                ('string', decoder.decode_string),
+                                ('bits', decoder.decode_bits),
+                                ('8int', decoder.decode_8bit_int),
+                                ('8uint', decoder.decode_8bit_uint),
+                                ('16int', decoder.decode_16bit_int),
+                                ('16uint', decoder.decode_16bit_uint),
+                                ('32int', decoder.decode_32bit_int),
+                                ('32uint', decoder.decode_32bit_uint),
+                                ('16float', decoder.decode_16bit_float),
+                                ('16float2', decoder.decode_16bit_float),
+                                ('32float', decoder.decode_32bit_float),
+                                ('32float2', decoder.decode_32bit_float),
+                                ('64int', decoder.decode_64bit_int),
+                                ('64uint', decoder.decode_64bit_uint),
+                                ('ignore', decoder.skip_bytes),
+                                ('64float', decoder.decode_64bit_float),
+                                ('64float2', decoder.decode_64bit_float),
+                            ])
+                            y['Value'] = decoded[y['Type']]() * y['Scale']
+                            #print ( "Register: " + y['Name'] + " = " + str(y['Value']) + " " + y['Units'])
+                            if DashingEnabled:
+                                DashMeas1.append(f"{y['Name']} = {y['Value']:.02f} {y['Units']}")
+                                ui.display()
+                            #print ( f"Register: {y['Name']} = {y['Value']:.02f} {y['Units']}")
+#                Rtuclient.close()
+
             #print("HOME")
             if DashingEnabled:
                 bchart.append(QuerryNb)
@@ -415,6 +494,51 @@ def device_polling():
                         else:
                             log.info(f"EmonCMS slave {z['NAME']} nothing to push")
 
+           if (CONF_EMONCMS and CONF_JANITZA_B23):
+                for x, z in B23_Config.items():
+                    if Rtuclient2.is_socket_open():
+                        reqdata = {}
+                        #print("Slave: " + z['NAME'])
+                        MyDict = z['DATA']
+                        #print (z['DATA'])
+                        for k, y in MyDict.items():
+                            #DashErrors.append(y['Name'])
+                            if  (y['Name'] == 'Freq'):
+                                vchart.append(50 + QuerryNb)
+                            reqdata[f"{z['NAME']}{y['Name']}"] = y['Value']
+                        #print('reqdata = {reqdata}')
+                        req = MyEmon.senddata(reqdata)
+                        reqstr = f'http://{emon_host}{emon_url}{emon_node}&json={json.dumps(reqdata)}&apikey={emon_privateKey}'
+
+                        try:
+                            r=requests.get(reqstr, timeout=10)
+                            r.raise_for_status()
+                        except requests.exceptions.HTTPError as errh:
+                            print ("Http Error:",errh)
+                        except requests.exceptions.ConnectionError as errc:
+                            print ("Error Connecting:",errc)
+                        except requests.exceptions.Timeout as errt:
+                            print ("Timeout Error:",errt)
+                        except requests.exceptions.RequestException as err:
+                            print ("OOps: Something Else",err)
+
+                        #print (r.status_code)
+                        #log.info( f"EmonCMS send status {r.status_code}" )
+                        if DashingEnabled:
+                            Dashlog.append(f"EmonCMS slave {z['NAME']} push status {r.status_code}")
+                            ui.display()
+                        else:
+                            log.info(f"EmonCMS slave {z['NAME']} push status {r.status_code}")
+                        #print (r.content)
+
+                    else:
+                        #log.info( "EmonCMS ORNO unable to send" )
+                        if DashingEnabled:
+                            Dashlog.append(f"EmonCMS slave {z['NAME']} nothing to push")
+                            ui.display()
+                        else:
+                            log.info(f"EmonCMS slave {z['NAME']} nothing to push")
+                            
             if (CONF_EMONCMS and CONF_EM370):
                 for x, z in EEM_Config.items():
                     if TcpClient.is_socket_open():
