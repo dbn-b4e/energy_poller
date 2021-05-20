@@ -201,6 +201,7 @@ def device_polling():
 
     SolarInverter = copy.deepcopy(SOLIS_4G_Registers)
     Grid = copy.deepcopy(EEM_MA370_Registers)
+    Evse = copy.deepcopy(JANITZA_B23_Registers)
 
     SOLIS_Config =  {
         'Solar': { "NAME": "Inverter", "PORT": "/dev/ttyUSB0", "ADDRESS": 1, "DATA": SolarInverter}
