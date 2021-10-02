@@ -1,5 +1,3 @@
-dd
-
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # how-to add float support to ModbusClient
