@@ -1,3 +1,5 @@
+
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # how-to add float support to ModbusClient
@@ -166,9 +168,11 @@ def device_polling():
     CONF_ORNO = False
     CONF_EM370 = True
     CONF_SOLIS_4G_3P = True
-    CONF_JANITZA_B23 = True
+    CONF_JANITZA_B23 = False
+    CONF_SDM630 = True
     CONF_EMONCMS = True
     RtuclientState = False
+
 
     QuerryNb = 0
 
@@ -192,19 +196,21 @@ def device_polling():
     #     ui.display()
 
     
-    OR_WE_514_Registers = testmap.generate_device_dict('./mapping_tools/or_we_514-v1-1_1.json')
+    #OR_WE_514_Registers = testmap.generate_device_dict('./mapping_tools/or_we_514-v1-1_1.json')
     EEM_MA370_Registers = testmap.generate_device_dict('./mapping_tools/eem_ma370-v1-1_1.json')
     SOLIS_4G_Registers = testmap.generate_device_dict('./mapping_tools/solis_4g_3p-v1-1_1.json')
-    JANITZA_B23_Registers = testmap.generate_device_dict('./mapping_tools/janitza_b23-v1-1_1.json')
+    SDM630_Registers = testmap.generate_device_dict('./mapping_tools/sdm630-v1-1_1.json')
+    #JANITZA_B23_Registers = testmap.generate_device_dict('./mapping_tools/janitza_b23-v1-1_1.json')
     #print(OR_WE_514_Registers)
     #print(json.dumps(EEM_MA370_Registers, indent='\t'))
     #print(OR_WE_514_Registers)
     #print(EEM_MA370_Registers)
     print(SOLIS_4G_Registers)
+    print(SDM630_Registers)
 
     SolarInverter = copy.deepcopy(SOLIS_4G_Registers)
     Grid = copy.deepcopy(EEM_MA370_Registers)
-    Evse = copy.deepcopy(JANITZA_B23_Registers)
+    Evse = copy.deepcopy(SDM630_Registers)
 
     SOLIS_Config =  {
         'Solar': { "NAME": "Inverter", "PORT": "/dev/ttyUSB0", "ADDRESS": 1, "DATA": SolarInverter}
@@ -214,8 +220,8 @@ def device_polling():
         'Grid': { "NAME": "Grid", "PORT": "", "ADDRESS": 1, "DATA": Grid}
     }
 
-    B23_Config =    {
-        'Evse': { "NAME": "Evse", "PORT": "/dev/ttyUSB1", "ADDRESS": 2, "DATA": Evse}
+    SDM630_Config =    {
+        'Evse': { "NAME": "Evse", "PORT": "/dev/ttyUSB1", "ADDRESS": 1, "DATA": Evse}
     }
     # Create modbus clients
     if CONF_EM370:
@@ -249,6 +255,21 @@ def device_polling():
                 pass
 
     if CONF_JANITZA_B23:
+        try:
+            Rtuclient2 = ModbusRtuClient(method='rtu', port='/dev/ttyUSB1', stopbits = 1, bytesize = 8, parity = 'N', baudrate = 9600 , timeout=1)
+            if DashingEnabled:
+                Dashlog.append( f"Modbus RTU port open: {Rtuclient2.connect()}")
+            else:
+                print(f"Modbus RTU port open: {Rtuclient2.connect()}")
+        except Exception as e:
+            if DashingEnabled:
+                DashErrors.append("Exception %s" % str(e))
+                ui.display()
+            else:
+                log.info("Exception %s" % str(e))
+                pass
+
+    if CONF_SDM630:
         try:
             Rtuclient2 = ModbusRtuClient(method='rtu', port='/dev/ttyUSB1', stopbits = 1, bytesize = 8, parity = 'N', baudrate = 9600 , timeout=1)
             if DashingEnabled:
@@ -388,14 +409,14 @@ def device_polling():
 
 
             Rtuclient2.connect()
-            if CONF_JANITZA_B23 and Rtuclient2.is_socket_open():
+            if CONF_SDM630 and Rtuclient2.is_socket_open():
                 if DashingEnabled:
                     Dashlog.append("Read EVSE charger")
                     ui.display()
                 else:
                     log.info("Read EVSE charger...")
 
-                for x, z in B23_Config.items():
+                for x, z in SDM630_Config.items():
                     if DashingEnabled:
                         Dashlog.append(f"Reading slave {z['NAME']}")
                         DashMeas1.append("")
@@ -503,7 +524,7 @@ def device_polling():
                         else:
                             log.info(f"EmonCMS slave {z['NAME']} nothing to push")
 
-            if (CONF_EMONCMS and CONF_JANITZA_B23):
+            if (CONF_EMONCMS and CONF_SDM630):
                 for x, z in B23_Config.items():
                     if Rtuclient2.is_socket_open():
                         reqdata = {}
