@@ -525,7 +525,7 @@ def device_polling():
                             log.info(f"EmonCMS slave {z['NAME']} nothing to push")
 
             if (CONF_EMONCMS and CONF_SDM630):
-                for x, z in B23_Config.items():
+                for x, z in SDM630_Config.items():
                     if Rtuclient2.is_socket_open():
                         reqdata = {}
                         #print("Slave: " + z['NAME'])
