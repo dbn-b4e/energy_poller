@@ -1,0 +1,148 @@
+{
+	"sections": [
+		{
+			"id": 16,
+			"version": 1,
+			"name": "EASTRON_SDM630_part1",
+			"address": 0,
+			"instance": 1,
+			"isize": 344,
+			"size": 344,
+			"mode": "ro",
+			"regs": [
+				{
+					"name": "_stub",
+					"type": "byte$12",
+					"size": 6,
+					"offset": 0,
+					"description": "Frequency"
+				},
+				{
+					"name": "IA",
+					"type": "float32",
+					"size": 2,
+					"offset": 6,
+					"unit": "A",
+					"description": "Irms L1"
+				},
+				{
+					"name": "IB",
+					"type": "float32",
+					"size": 2,
+					"offset": 8,
+					"unit": "A",
+					"description": "Irms L2"
+				},
+				{
+					"name": "IC",
+					"type": "float32",
+					"size": 2,
+					"offset": 10,
+					"unit": "A",
+					"description": "Irms L3"
+				},
+				{
+					"name": "_stub",
+					"type": "byte$80",
+					"size": 40,
+					"offset": 12
+				},
+				{
+					"name": "Ptot",
+					"type": "float32",
+					"size": 2,
+					"offset": 52,
+					"unit": "W",
+					"description": "Active Power"
+				},
+				{
+					"name": "_stub",
+					"type": "byte$16",
+					"size": 8,
+					"offset": 54
+				},
+				{
+					"name": "PF",
+					"type": "float32",
+					"size": 2,
+					"offset": 62,
+					"description": "Power Factor"
+				},
+				{
+					"name": "_stub",
+					"type": "byte$272",
+					"size": 136,
+					"offset": 64
+				},
+				{
+					"name": "V12",
+					"type": "float32",
+					"size": 2,
+					"offset": 200,
+					"unit": "V",
+					"description": "Vrms L1"
+				},
+				{
+					"name": "V23",
+					"type": "float32",
+					"size": 2,
+					"offset": 202,
+					"unit": "V",
+					"description": "Vrms L2"
+				},
+				{
+					"name": "V31",
+					"type": "float32",
+					"size": 2,
+					"offset": 204,
+					"unit": "V",
+					"description": "Vrms L3"
+				},
+				{
+					"name": "_stub",
+					"type": "byte$108",
+					"size": 54,
+					"offset": 204
+				},
+				{
+					"name": "Iad",
+					"type": "float32",
+					"size": 2,
+					"offset": 258,
+					"unit": "A",
+					"description": "Irms L1dem"
+				},
+				{
+					"name": "Ibd",
+					"type": "float32",
+					"size": 2,
+					"offset": 260,
+					"unit": "A",
+					"description": "Irms L2dem"
+				},
+				{
+					"name": "Icd",
+					"type": "float32",
+					"size": 2,
+					"offset": 262,
+					"unit": "A",
+					"description": "Irms L3dem"
+				},
+				{
+					"name": "_stub",
+					"type": "byte$156",
+					"size": 78,
+					"offset": 264
+				},
+				{
+					"name": "Energy",
+					"type": "float32",
+					"size": 2,
+					"offset": 342,
+					"unit": "kWh",
+					"description": "Total active energy"
+				}
+			]
+		}
+	]
+}
